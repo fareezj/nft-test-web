@@ -1,139 +1,31 @@
 import "./index.css";
 import { Suspense, useRef, useState } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls, useGLTF, useTexture } from "@react-three/drei";
-import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-
-function Model({ ...props }) {
-  const group = useRef();
-  const gltf = useLoader(GLTFLoader, "/shoe.glb");
-
-  const { nodes, materials } = useLoader(GLTFLoader, "/shoe.gltf");
-  console.log(nodes);
-  console.log(materials);
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
-    TextureLoader,
-    props.customColors.texture
-  );
-
-  return (
-    <group ref={group} {...props} dispose={null} scale={3}>
-      <mesh
-        geometry={nodes.shoe.geometry}
-        material={materials.laces}
-        material-color={props.customColors.stripes}
-      />
-      <mesh
-        geometry={nodes.shoe_1.geometry}
-        material={materials.mesh}
-        material-color={props.customColors.mesh}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.shoe_2.geometry}
-        material={materials.caps}
-        material-color={"white"}
-      />
-      <mesh
-        geometry={nodes.shoe_3.geometry}
-        material={materials.inner}
-        material-color={"red"}
-      />
-      <mesh
-        geometry={nodes.shoe_4.geometry}
-        material={materials.sole}
-        material-color={props.customColors.sole}
-      />
-      <mesh
-        geometry={nodes.shoe_5.geometry}
-        material={materials.stripes}
-        material-color={props.customColors.stripes}
-      ></mesh>
-      <mesh
-        geometry={nodes.shoe_6.geometry}
-        material={materials.band}
-        material-color={"red"}
-      />
-      <mesh
-        geometry={nodes.shoe_7.geometry}
-        material={materials.patch}
-        material-color={"red"}
-      />
-      <mesh></mesh>
-    </group>
-  );
-}
-
-function ChairModel({ ...props }) {
-  const group = useRef();
-  const { nodes, materials } = useLoader(GLTFLoader, "/SheenChair.glb");
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
-    TextureLoader,
-    props.customColors.texture
-  );
-  return (
-    <group ref={group} {...props} dispose={null} scale={3}>
-      <mesh
-        geometry={nodes.SheenChair_fabric.geometry}
-        material={materials["fabric Mystere Mango Velvet"]}
-        material-color={props.customColors.mesh}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.SheenChair_wood.geometry}
-        material={materials["wood Brown"]}
-        material-color={props.customColors.sole}
-      />
-      <mesh
-        geometry={nodes.SheenChair_metal.geometry}
-        material={materials.metal}
-        material-color={props.customColors.stripes}
-      />
-      <mesh
-        geometry={nodes.SheenChair_label.geometry}
-        material={materials.label}
-        position={[0, 0.24, 0.06]}
-        rotation={[-0.09, 0, 0]}
-      />
-    </group>
-  );
-}
-
-useGLTF.preload("/SheenChair.gltf");
+import { OrbitControls, useGLTF } from "@react-three/drei";
+import BjakShoes from "./3dModels/bjak_shoes";
+import BjakBag from "./3dModels/bjak_bag";
+import ShoeModel from "./3dModels/shoe";
+import ChairModel from "./3dModels/chair";
+import TruckModel from "./3dModels/truck";
 
 export default function App() {
-  const [mesh, setMesh] = useState("#0000FF");
+  const [mesh, setMesh] = useState("");
   const [stripes, setStripes] = useState("#ffffff");
   const [sole, setSole] = useState("#ffffff");
   const [texture, setTexture] = useState([]);
+  const [objectType, setObjectType] = useState("");
+  let meshColor = "";
 
   function handleTextureChange(type) {
     console.log(type);
     switch (type) {
       case "bricks":
         setTexture([
-          "Bricks051_4K_Color.png",
-          "Bricks051_4K_Displacement.png",
-          "Bricks051_4K_NormalDX.png",
-          "Bricks051_4K_Roughness.png",
-          "Bricks051_4K_NormalGL.png",
+          "Terrazzo018_1K_Color.jpg",
+          "Terrazzo018_1K_Displacement.jpg",
+          "Terrazzo018_1K_NormalDX.jpg",
+          "Terrazzo018_1K_Roughness.jpg",
+          "Terrazzo018_1K_NormalGL.jpg",
         ]);
         break;
       case "leather":
@@ -160,6 +52,13 @@ export default function App() {
     }
   }
 
+  function resetStyling() {
+    setSole("");
+    setMesh("");
+    setStripes("");
+    setTexture([]);
+  }
+
   return (
     <div className="App">
       <div className="wrapper">
@@ -175,35 +74,58 @@ export default function App() {
                   position={[10, 15, 10]}
                   castShadow
                 />
-                {/* <BjakModel
-                  customColors={{
-                    texture: texture,
-                  }}
-                /> */}
-                <Model
-                  customColors={{
-                    mesh: mesh,
-                    stripes: stripes,
-                    sole: sole,
-                    texture: texture,
-                  }}
-                />
-                {/* <ChairModel
-                  customColors={{
-                    mesh: mesh,
-                    stripes: stripes,
-                    sole: sole,
-                    texture: texture,
-                  }}
-                /> */}
-                <Model
-                  customColors={{
-                    mesh: mesh,
-                    stripes: stripes,
-                    sole: sole,
-                    texture: texture,
-                  }}
-                />
+                {/* <ObjectRender type={objectType} meshColor={mesh} /> */}
+                {objectType === "shoesModel" ? (
+                  <ShoeModel
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "chairModel" ? (
+                  <ChairModel
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "bjakShoesModel" ? (
+                  <BjakShoes
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "bjakBagModel" ? (
+                  <BjakBag
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "truckModel" ? (
+                  <TruckModel
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+
                 <OrbitControls
                   enableRotate={true}
                   enablePan={true}
@@ -212,19 +134,81 @@ export default function App() {
               </Suspense>
             </Canvas>
           </div>
+          <div>
+            <input
+              id="object"
+              type="button"
+              value={"shoesModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="object"
+              type="button"
+              value={"chairModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="object"
+              type="button"
+              value={"bjakShoesModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="object"
+              type="button"
+              value={"bjakBagModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="object"
+              type="button"
+              value={"truckModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+          </div>
           <h2>Color chooser</h2>
           <div className="colors">
             <div>
-              <input
-                type="color"
-                id="mesh"
-                name="mesh"
-                value="#e66465"
-                onChange={(e) => setMesh(e.target.value)}
-              />
-              <label for="mesh">Mesh</label>
+              <form>
+                {/* <input
+                  type="text"
+                  id="mesh"
+                  name="mesh"
+                  value={mesh}
+                  onChange={(e) => {
+                    // // meshChange(e.target.value);
+                    // console.log(e.target.value);
+                    // meshColor = e.target.value;
+                  }}
+                />
+                <label for="mesh">Mesh</label> */}
+                <input
+                  id="buttonMesh"
+                  type="button"
+                  value={""}
+                  onClick={(e) => {
+                    console.log("COLOR SHOULD CHANGE");
+                    console.log(e.target.value);
+                    setMesh(e.target.value);
+                  }}
+                />
+              </form>
             </div>
-
             <div>
               <input
                 type="color"
@@ -263,315 +247,3 @@ export default function App() {
     </div>
   );
 }
-
-function BjakModel({ ...props }) {
-  console.log("Hello");
-  const group = useRef();
-  const { nodes, materials } = useLoader(GLTFLoader, "/BjakShoes.gltf");
-  console.log(nodes);
-  const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(
-    TextureLoader,
-    props.customColors.texture
-  );
-
-  return (
-    <group ref={group} {...props} dispose={null}>
-      <mesh
-        geometry={nodes.sock.geometry}
-        material={materials.black}
-        position={[0, -0.13, 0]}
-        scale={0.96}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock002.geometry}
-        material={materials.blue}
-        position={[0, -0.1, 0.01]}
-        scale={[1.09, 1.18, 1.02]}
-      ></mesh>
-      <mesh
-        geometry={nodes.sock003.geometry}
-        material={materials.blue}
-        position={[0, -0.16, 0]}
-        scale={[0.94, 1.01, 1.01]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock004.geometry}
-        material={materials.blue}
-        position={[0, -0.07, 0.04]}
-        scale={1.01}
-      ></mesh>
-      <mesh
-        geometry={nodes.sock005.geometry}
-        material={materials.Material}
-        position={[0, -0.13, 0]}
-        scale={0.95}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock001.geometry}
-        material={materials["Material.001"]}
-        position={[0, -0.21, 0.01]}
-        rotation={[0.02, 0, 0]}
-        scale={0.96}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock006.geometry}
-        material={materials.black}
-        position={[0.06, -0.1, -0.05]}
-        rotation={[-0.03, 0.07, 0]}
-        scale={[1.21, 1.3, 1.03]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock007.geometry}
-        material={nodes.sock007.material}
-        position={[0, -0.1, 0.01]}
-        scale={[1.1, 1.19, 1.02]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock008.geometry}
-        material={nodes.sock008.material}
-        position={[0, -0.16, 0]}
-        scale={[0.94, 1.01, 1.01]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock009.geometry}
-        material={materials.Material}
-        position={[0, -0.16, 0]}
-        scale={[0.94, 1.01, 1.01]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock010.geometry}
-        material={materials.black}
-        position={[2.63, -0.13, 0]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={-0.96}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock011.geometry}
-        material={materials.blue}
-        position={[2.63, -0.1, 0.01]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={[-1.09, -1.18, -1.02]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock012.geometry}
-        material={materials.blue}
-        position={[2.63, -0.16, 0]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={[-0.94, -1.01, -1.01]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock013.geometry}
-        material={materials.blue}
-        position={[2.63, -0.07, 0.04]}
-        rotation={[3.14, 0, 0]}
-        scale={-1.01}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock014.geometry}
-        material={materials.Material}
-        position={[2.63, -0.13, 0]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={-0.95}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock015.geometry}
-        material={materials["Material.001"]}
-        position={[2.63, -0.21, 0.01]}
-        rotation={[-3.12, 0, 0]}
-        scale={-0.96}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock016.geometry}
-        material={materials.black}
-        position={[2.57, -0.1, -0.05]}
-        rotation={[3.11, 0.07, 0]}
-        scale={[-1.21, -1.3, -1.03]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock017.geometry}
-        material={nodes.sock017.material}
-        position={[2.63, -0.1, 0.01]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={[-1.1, -1.19, -1.02]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock018.geometry}
-        material={nodes.sock018.material}
-        position={[2.63, -0.16, 0]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={[-0.94, -1.01, -1.01]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-      <mesh
-        geometry={nodes.sock019.geometry}
-        material={materials.Material}
-        position={[2.63, -0.16, 0]}
-        rotation={[-Math.PI, 0, 0]}
-        scale={[-0.94, -1.01, -1.01]}
-      >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-useGLTF.preload("/BjakShoes.gltf");

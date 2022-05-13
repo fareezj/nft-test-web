@@ -13,17 +13,17 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* .card {
+.card {
   height: 50vh;
   border-radius: 13px;
   box-shadow: 20px 40px 33px rgba(0, 0, 0, 0.3);
   padding: 2rem;
   width: 35vw;
   background-color: #6cc2ce;
-} */
+}
 
 .product-canvas {
-  width: 50vw;
+  width: 40vw;
   height: 50vh;
   background: white;
   box-shadow: 10px 15px 15px 6px #3891b4;

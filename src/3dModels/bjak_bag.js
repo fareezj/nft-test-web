@@ -21,7 +21,7 @@ export default function BjakBag({ ...props }) {
         geometry={nodes.Plane001.geometry}
         material={materials["Material.002"]}
         rotation={[-Math.PI / 2, 1.57, 0]}
-        material-color={props.customColors.stripes}
+        material-color={props.customColors.color1}
       />
       <mesh
         geometry={nodes.Plane003.geometry}
@@ -29,15 +29,17 @@ export default function BjakBag({ ...props }) {
         position={[0, 0.13, -0.02]}
         rotation={[-Math.PI / 2, 1.57, 0]}
         scale={0.93}
-        material-color={props.customColors.stripes}
+        material-color={props.customColors.color2}
       />
+
+      {/* Pocket */}
       <mesh
         geometry={nodes.Cube001.geometry}
         material={materials["Material.003"]}
         position={[0, -0.2, 0.04]}
         rotation={[-0.05, 0, 0]}
         scale={[1, 1.46, 1]}
-        material-color={props.customColors.mesh}
+        material-color={props.customColors.color3}
       >
         <meshStandardMaterial
           displacementScale={0.002}
@@ -48,35 +50,44 @@ export default function BjakBag({ ...props }) {
           aoMap={aoMap}
         />
       </mesh>
+
+      {/* Buckle */}
       <mesh
         geometry={nodes.Cube002.geometry}
         material={materials["Material.004"]}
         scale={0.1}
+        material-color={"green"}
       />
       <mesh
         geometry={nodes.Cube003.geometry}
         material={materials["Material.004"]}
         scale={0.3}
+        material-color={"blue"}
       />
-      <mesh
-        geometry={nodes.BezierCurve.geometry}
-        material={materials["Material.002"]}
-      />
+
       <mesh
         geometry={nodes.Cube004.geometry}
         material={materials["Material.004"]}
         position={[0, 0, -0.63]}
         scale={0.3}
+        material-color={"pink"}
+      />
+
+      <mesh
+        geometry={nodes.BezierCurve.geometry}
+        material={materials["Material.002"]}
+        material-color={"orange"}
       />
       <mesh
         geometry={nodes.BezierCurve001.geometry}
         material={materials["Material.002"]}
         position={[0, 0, -0.61]}
+        material-color={"purple"}
       />
       <mesh
         geometry={nodes.Cube005.geometry}
         material={materials["Material.004"]}
-        material-color={props.customColors.sole}
+        material-color={"yellow"}
       />
     </group>
   );

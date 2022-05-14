@@ -1,12 +1,14 @@
 import "./index.css";
-import { Suspense, useRef, useState } from "react";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Suspense, useRef, useState, useMemo } from "react";
+import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import BjakShoes from "./3dModels/bjak_shoes";
 import BjakBag from "./3dModels/bjak_bag";
 import ShoeModel from "./3dModels/shoe";
 import ChairModel from "./3dModels/chair";
 import TruckModel from "./3dModels/truck";
+import { Vector2 } from "three";
+import TestModel from "./3dModels/test";
 
 export default function App() {
   const [mesh, setMesh] = useState("");
@@ -14,7 +16,16 @@ export default function App() {
   const [sole, setSole] = useState("#ffffff");
   const [texture, setTexture] = useState([]);
   const [objectType, setObjectType] = useState("");
-  let meshColor = "";
+  // Bjak Bag
+  const [color1, setColor1] = useState("");
+  const [color2, setColor2] = useState("");
+  const [color3, setColor3] = useState("");
+  const [color4, setColor4] = useState("");
+  const [color5, setColor5] = useState("");
+  const [color6, setColor6] = useState("");
+  const [color7, setColor7] = useState("");
+  const [color8, setColor8] = useState("");
+  const [color9, setColor9] = useState("");
 
   function handleTextureChange(type) {
     console.log(type);
@@ -58,7 +69,7 @@ export default function App() {
     setStripes("");
     setTexture([]);
   }
-
+  // camera={{ fov: 180 * (Math.PI / 180) }}
   return (
     <div className="App">
       <div className="wrapper">
@@ -74,7 +85,14 @@ export default function App() {
                   position={[10, 15, 10]}
                   castShadow
                 />
-                {/* <ObjectRender type={objectType} meshColor={mesh} /> */}
+                {/* <TestModel
+                  customColors={{
+                    mesh: mesh,
+                    stripes: stripes,
+                    sole: sole,
+                    texture: texture,
+                  }}
+                /> */}
                 {objectType === "shoesModel" ? (
                   <ShoeModel
                     customColors={{
@@ -87,6 +105,7 @@ export default function App() {
                 ) : null}
                 {objectType === "chairModel" ? (
                   <ChairModel
+                    position={[0.1, -0.8, 0.1]}
                     customColors={{
                       mesh: mesh,
                       stripes: stripes,
@@ -107,10 +126,17 @@ export default function App() {
                 ) : null}
                 {objectType === "bjakBagModel" ? (
                   <BjakBag
+                    position={[0.1, -0.8, 0.1]}
                     customColors={{
-                      mesh: mesh,
-                      stripes: stripes,
-                      sole: sole,
+                      color1: color1,
+                      color2: color2,
+                      color3: color3,
+                      color4: color4,
+                      color5: color5,
+                      color6: color6,
+                      color7: color7,
+                      color8: color8,
+                      color9: color9,
                       texture: texture,
                     }}
                   />
@@ -127,6 +153,8 @@ export default function App() {
                 ) : null}
 
                 <OrbitControls
+                  minDistance={2}
+                  maxDistance={15}
                   enableRotate={true}
                   enablePan={true}
                   enableZoom={true}
@@ -136,7 +164,7 @@ export default function App() {
           </div>
           <div>
             <input
-              id="object"
+              id="shoeObject"
               type="button"
               value={"shoesModel"}
               onClick={(e) => {
@@ -145,7 +173,7 @@ export default function App() {
               }}
             />
             <input
-              id="object"
+              id="chairObject"
               type="button"
               value={"chairModel"}
               onClick={(e) => {
@@ -154,7 +182,7 @@ export default function App() {
               }}
             />
             <input
-              id="object"
+              id="bjakShoeObject"
               type="button"
               value={"bjakShoesModel"}
               onClick={(e) => {
@@ -163,7 +191,7 @@ export default function App() {
               }}
             />
             <input
-              id="object"
+              id="bjakBagObject"
               type="button"
               value={"bjakBagModel"}
               onClick={(e) => {
@@ -172,7 +200,7 @@ export default function App() {
               }}
             />
             <input
-              id="object"
+              id="truckObject"
               type="button"
               value={"truckModel"}
               onClick={(e) => {
@@ -182,32 +210,34 @@ export default function App() {
             />
           </div>
           <h2>Color chooser</h2>
+          <h3>Bjak Bag</h3>
           <div className="colors">
+            <input
+              id="color1"
+              type="button"
+              value={""}
+              onClick={(e) => {
+                setColor1(e.target.value);
+              }}
+            />
+            <input
+              id="color2"
+              type="button"
+              value={""}
+              onClick={(e) => {
+                setColor2(e.target.value);
+              }}
+            />
+
             <div>
-              <form>
-                {/* <input
-                  type="text"
-                  id="mesh"
-                  name="mesh"
-                  value={mesh}
-                  onChange={(e) => {
-                    // // meshChange(e.target.value);
-                    // console.log(e.target.value);
-                    // meshColor = e.target.value;
-                  }}
-                />
-                <label for="mesh">Mesh</label> */}
-                <input
-                  id="buttonMesh"
-                  type="button"
-                  value={""}
-                  onClick={(e) => {
-                    console.log("COLOR SHOULD CHANGE");
-                    console.log(e.target.value);
-                    setMesh(e.target.value);
-                  }}
-                />
-              </form>
+              <input
+                id="buttonMesh"
+                type="button"
+                value={""}
+                onClick={(e) => {
+                  setMesh(e.target.value);
+                }}
+              />
             </div>
             <div>
               <input

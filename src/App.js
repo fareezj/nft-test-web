@@ -20,6 +20,7 @@ import useTextureChange from "./utils/handleTextureChange";
 import handleTextureChange from "./utils/handleTextureChange";
 import SneakerModel from "./3dModels/sneaker";
 import HeelsModel from "./3dModels/heels";
+import NeclaceARModel from "./3dModels/neclaceAR";
 
 export default function App() {
   const {
@@ -45,6 +46,7 @@ export default function App() {
   const [stripes, setStripes] = useState("#ffffff");
   const [sole, setSole] = useState("#ffffff");
   const [texture, setTexture] = useState([]);
+  const [isModelTextured, setIsModelTextured] = useState(false);
   const [objectType, setObjectType] = useState("");
 
   function resetStyling() {
@@ -60,6 +62,7 @@ export default function App() {
     setPrimaryColor("");
     setSecondaryColor("");
     setBaseInsideColor("");
+    setIsModelTextured(false);
   }
   // camera={{ fov: 180 * (Math.PI / 180) }}
   return (
@@ -69,15 +72,17 @@ export default function App() {
           <div className="product-canvas">
             <Canvas>
               <Suspense fallback={null}>
-                <pointLight
-                  intensity={100}
-                  angle={0.1}
+                <ambientLight intensity={1.5} />
+                <spotLight
+                  intensity={1}
+                  angle={1.0}
                   penumbra={1}
-                  position={[10, 10, 1]}
+                  position={[10, 15, 10]}
                   castShadow
                 />
                 {objectType === "bjakHatModel" ? (
                   <BjakHatARModel
+                    isTextured={isModelTextured}
                     customColors={{
                       circularRingColor,
                       fabricColor,
@@ -87,14 +92,61 @@ export default function App() {
                     }}
                   />
                 ) : null}
-                <SneakerModel
-                  customColors={{
-                    mesh: mesh,
-                    stripes: stripes,
-                    sole: sole,
-                    texture: texture,
-                  }}
-                />
+                {objectType === "neclaceModel" ? (
+                  <NeclaceARModel
+                    isTextured={isModelTextured}
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "goggleModel" ? (
+                  <GoogleARModel
+                    isTextured={isModelTextured}
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "sneakerModel" ? (
+                  <SneakerModel
+                    isTextured={isModelTextured}
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "heelsModel" ? (
+                  <HeelsModel
+                    isTextured={isModelTextured}
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
+                {objectType === "bagModel" ? (
+                  <BagModel
+                    isTextured={isModelTextured}
+                    customColors={{
+                      mesh: mesh,
+                      stripes: stripes,
+                      sole: sole,
+                      texture: texture,
+                    }}
+                  />
+                ) : null}
                 {objectType === "shoesModel" ? (
                   <ShoeModel
                     customColors={{
@@ -148,6 +200,51 @@ export default function App() {
             </Canvas>
           </div>
           <div className={"main"}>
+            <input
+              id="bagObject"
+              type="button"
+              value={"bagModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="heelsObject"
+              type="button"
+              value={"heelsModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="sneakerObject"
+              type="button"
+              value={"sneakerModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="neclaceObject"
+              type="button"
+              value={"neclaceModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
+            <input
+              id="goggleObject"
+              type="button"
+              value={"goggleModel"}
+              onClick={(e) => {
+                setObjectType(e.target.value);
+                resetStyling();
+              }}
+            />
             <input
               id="bjakHatObject"
               type="button"
@@ -243,6 +340,14 @@ export default function App() {
                   setMesh(e.target.value);
                 }}
               />
+              <input
+                id="textureSwitch"
+                type="button"
+                value={isModelTextured}
+                onClick={(e) => {
+                  setIsModelTextured(!isModelTextured);
+                }}
+              />
             </div>
             <div>
               <input
@@ -265,21 +370,14 @@ export default function App() {
               <label for="sole">Sole</label>
             </div>
             <div>
-              <select
+              <input
+                type={"button"}
                 id="texture"
                 name="texture"
-                onChange={(e) => {
-                  console.log(handleTextureChange(e.target.value));
+                onClick={(e) => {
                   setTexture(handleTextureChange(e.target.value));
                 }}
-              >
-                <option value="plain">Plain</option>
-                <option value="terrazzo">Terrazzo</option>
-                <option value="leather">Leather</option>
-                <option value="fabric">Fabric</option>
-                <option value="tiles">Tiles</option>
-                <option value="tape">Tape</option>
-              </select>
+              />
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ export default function GoogleARModel({ ...props }) {
     TextureLoader,
     props.customColors.texture
   );
-
+  const isTextured = props.isTextured;
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh
@@ -18,227 +18,261 @@ export default function GoogleARModel({ ...props }) {
         material={materials["Material.002"]}
         scale={1.01}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere003_RLExtr001.geometry}
         material={materials["Material.002"]}
         scale={1.01}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere003_RLExtr002.geometry}
         material={materials["Material.002"]}
         scale={1.01}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere002_RLExtr.geometry}
         material={materials["Material.004"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere002_RLExtr001.geometry}
         material={materials["Material.004"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere001.geometry}
         material={materials["Material.004"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere002.geometry}
         material={materials["Material.006"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere003.geometry}
         material={materials["Material.007"]}
         scale={1.01}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere004.geometry}
         material={materials["Material.003"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Cylinder.geometry}
         material={materials["Material.005"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Cylinder001.geometry}
         material={materials["Material.005"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Cylinder002.geometry}
         material={materials["Material.005"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere009.geometry}
         material={materials["Material.005"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Sphere010.geometry}
         material={materials["Material.005"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Cylinder003.geometry}
         material={materials["Material.004"]}
         position={[-0.01, 0, 0.01]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.Cylinder004.geometry}
         material={materials["Material.004"]}
         position={[-0.01, -0.54, 0.29]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       <mesh
         geometry={nodes.NurbsPath.geometry}
         material={materials["Material.004"]}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
     </group>
   );

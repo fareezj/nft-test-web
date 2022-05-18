@@ -10,6 +10,9 @@ export default function HeelsModel({ ...props }) {
     TextureLoader,
     props.customColors.texture
   );
+  const isTextured = props.isTextured;
+  const { baseColor, primaryColor, secondaryColor, baseInsideColor } =
+    props.customColors;
   return (
     <group ref={group} {...props} dispose={null}>
       <group
@@ -20,44 +23,50 @@ export default function HeelsModel({ ...props }) {
         <mesh
           geometry={nodes.Cylinder_1.geometry}
           material={materials.black}
-          material-color={"blue"}
+          material-color={"green"}
         >
-          <meshStandardMaterial
-            displacementScale={0.001}
-            map={colorMap}
-            displacementMap={displacementMap}
-            normalMap={normalMap}
-            roughnessMap={roughnessMap}
-            aoMap={aoMap}
-          />
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
         </mesh>
         <mesh
           geometry={nodes.Cylinder_2.geometry}
           material={materials["Material.001"]}
-          material-color={"blue"}
+          material-color={"green"}
         >
-          <meshStandardMaterial
-            displacementScale={0.001}
-            map={colorMap}
-            displacementMap={displacementMap}
-            normalMap={normalMap}
-            roughnessMap={roughnessMap}
-            aoMap={aoMap}
-          />
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
         </mesh>
         <mesh
           geometry={nodes.Cylinder_3.geometry}
           material={materials.grey}
-          material-color={"blue"}
+          material-color={"green"}
         >
-          <meshStandardMaterial
-            displacementScale={0.001}
-            map={colorMap}
-            displacementMap={displacementMap}
-            normalMap={normalMap}
-            roughnessMap={roughnessMap}
-            aoMap={aoMap}
-          />
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
         </mesh>
       </group>
     </group>

@@ -10,6 +10,7 @@ export default function SneakerModel({ ...props }) {
     TextureLoader,
     props.customColors.texture
   );
+  const isTextured = props.isTextured;
   return (
     <group ref={group} {...props} dispose={null}>
       <group
@@ -21,22 +22,66 @@ export default function SneakerModel({ ...props }) {
           geometry={nodes.Plane_1.geometry}
           material={materials["black.001"]}
           material-color={"green"}
-        ></mesh>
+        >
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
+        </mesh>
         <mesh
           geometry={nodes.Plane_2.geometry}
           material={materials.emission}
           material-color={"green"}
-        ></mesh>
+        >
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
+        </mesh>
         <mesh
           geometry={nodes.Plane_3.geometry}
           material={materials.red}
           material-color={"green"}
-        ></mesh>
+        >
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
+        </mesh>
         <mesh
           geometry={nodes.Plane_4.geometry}
           material={materials.gold}
           material-color={"green"}
-        ></mesh>
+        >
+          {isTextured ? (
+            <meshStandardMaterial
+              displacementScale={0.001}
+              map={colorMap}
+              displacementMap={displacementMap}
+              normalMap={normalMap}
+              roughnessMap={roughnessMap}
+              aoMap={aoMap}
+            />
+          ) : null}
+        </mesh>
       </group>
       <mesh
         geometry={nodes.Sphere003.geometry}
@@ -44,28 +89,72 @@ export default function SneakerModel({ ...props }) {
         position={[2.58, -0.85, 0.73]}
         rotation={[0, 0.54, 0]}
         scale={0.05}
-      ></mesh>
+      >
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
+      </mesh>
       <mesh
         geometry={nodes.Sphere001.geometry}
         material={materials.emission}
         position={[1.72, -0.84, 1.28]}
         rotation={[0, 0.54, 0]}
         scale={0.05}
-      ></mesh>
+      >
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
+      </mesh>
       <mesh
         geometry={nodes.Sphere002.geometry}
         material={materials.emission}
         position={[0.69, -0.85, 1.89]}
         rotation={[0, 0.54, 0]}
         scale={0.05}
-      ></mesh>
+      >
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
+      </mesh>
       <mesh
         geometry={nodes.Sphere004.geometry}
         material={materials.emission}
         position={[-0.17, -0.84, 2.44]}
         rotation={[0, 0.54, 0]}
         scale={0.05}
-      ></mesh>
+      >
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
+      </mesh>
     </group>
   );
 }

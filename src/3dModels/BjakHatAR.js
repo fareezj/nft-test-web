@@ -16,6 +16,7 @@ export default function BjakHatARModel({ ...props }) {
     TextureLoader,
     props.customColors.texture
   );
+  const isTextured = props.isTextured;
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh
@@ -61,14 +62,16 @@ export default function BjakHatARModel({ ...props }) {
         material={materials.Material}
         material-color={fabricColor}
       >
-        <meshStandardMaterial
-          displacementScale={0.001}
-          map={colorMap}
-          displacementMap={displacementMap}
-          normalMap={normalMap}
-          roughnessMap={roughnessMap}
-          aoMap={aoMap}
-        />
+        {isTextured ? (
+          <meshStandardMaterial
+            displacementScale={0.001}
+            map={colorMap}
+            displacementMap={displacementMap}
+            normalMap={normalMap}
+            roughnessMap={roughnessMap}
+            aoMap={aoMap}
+          />
+        ) : null}
       </mesh>
       {/* Primary Metal */}
       <mesh
